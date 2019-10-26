@@ -1,4 +1,4 @@
-# CS 100 Programming Project
+# CS 100 RShell
 ## Fall 2019
 ### Timothy Jacob Ko (861286868) and Ethan Nguyen (861283248)
 
