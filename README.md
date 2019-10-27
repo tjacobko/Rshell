@@ -9,7 +9,7 @@ This program is a basic command shell called rshell. This project aims to furthe
 ![OMT](https://raw.githubusercontent.com/cs100/assignment-caffeineorfeed/master/images/Rshell%20OMT.png?token=ANL74FKUPMIWN2GJ6I2QS325XY5P4)
 
 # Class Descriptions:
-**Base Class**(To be named...): Our Base class is a class that can execute commands from a reader. This base class also has an aggregation relationship with a **Reader** class. The reader class takes in members and searches for the appropriate classes. It also has to be able to read in inclusion/exclusion values such as *;*, *&&* and *||*.
+**Base Class** : Our Base class is a class that can execute commands from a reader. This base class also has an aggregation relationship with a **Reader** class. The reader class takes in members and searches for the appropriate classes. It also has to be able to read in inclusion/exclusion values such as *;*, *&&* and *||*.
 
 A class group inherits from our base class. They all inherit the **virtual void** execute() function, which should execute any commands that are given by the user. They may also inherit the output() function, which outputs the command that was read in by the system. We have some ideas about the classes that inherit the base class. 
 
