@@ -3,13 +3,13 @@
 ### Timothy Jacob Ko (861286868) and Ethan Nguyen (861283248)
 
 # Introduction:
-This program is a basic command shell called rshell. This project aims to further our understanding of working in a group environment and utilizing methods such as SCRUM, AGILE, WATERFALL, etc. We will implement composite patterns and strategy patterns to structure programs.
+This program is a basic command shell called rshell. We will implement a composite pattern to create a working command line, which will be capable of reading in user input through a reader and decipher the correct command based on what is read by choosing the correct class.
 
 # Diagram:
 ![OMT](https://raw.githubusercontent.com/cs100/assignment-caffeineorfeed/master/images/Rshell%20OMT.png?token=ANL74FKUPMIWN2GJ6I2QS325XY5P4)
 
 # Class Descriptions:
-**Base Class** : Our Base class is a class that can execute commands from a reader. This base class also has an aggregation relationship with a **Reader** class. The reader class takes in members and searches for the appropriate classes. It also has to be able to read in inclusion/exclusion values such as *;*, *&&* and *||*.
+**Base Class**(To be named...): Our Base class is a class that can execute commands from a reader. This base class also has an aggregation relationship with a **Reader** class. The reader class takes in members and searches for the appropriate classes. It also has to be able to read in inclusion/exclusion values such as *;*, *&&* and *||*.
 
 A class group inherits from our base class. They all inherit the **virtual void** execute() function, which should execute any commands that are given by the user. They may also inherit the output() function, which outputs the command that was read in by the system. We have some ideas about the classes that inherit the base class. 
 
