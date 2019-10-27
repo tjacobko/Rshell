@@ -6,7 +6,6 @@
 This program is a basic command shell called rshell. This project aims to further our understanding of working in a group environment and utilizing methods such as SCRUM, AGILE, WATERFALL, etc. We will implement composite patterns and strategy patterns to structure programs.
 
 # Diagram:
-![OMT Diagram](https://raw.githubusercontent.com/cs100/assignment-caffeineorfeed/master/images/Rshell%20OMT.png?token=ANL74FKUPMIWN2GJ6I2QS325XY5P4)
 
 # Class Descriptions:
 **Base Class**(To be named...): Our Base class is a class that can execute commands from a reader. This base class also has an aggregation relationship with a **Reader** class. The reader class takes in members and searches for the appropriate classes. It also has to be able to read in inclusion/exclusion values such as *;*, *&&* and *||*.
@@ -19,6 +18,22 @@ Another class we have is the **Traversal** class which moves the user across the
 
 # Prototypes/Research:
 Because we are unfamiliar with the three functions: waitpid(), execvp(), and fork(). We will attempt to implement and run each function by itself in order to get a grasp on the functionality of them. Additionally, we will test all three functions together to test and run the command lines we will use in Assignment 2.
+
+**fork()** : is a system call when creating new processes. A child process and a parent process. It does not have any parameters and return an integer. This integer tells us three things:
+   1. A **negative** value shows the creation of a child process was unsuccessful.
+   2. A **zero** value shows that it returned to a newly created child process.
+   3. A **positive** value shows that it returned to a parent or user.
+   
+**waitpid()** : is a system call that blocks the calling process until one of the child processes exit *or* when a signal is received.
+
+**execvp()** : is a system call that creates a child process that **does not** run the same process that the parent does. It can also allow a process to run any program files, which include a binary executable or a shell script.
+*Example code courtesy of GeeksForGeeks*
+```
+int execvp (const char *file, char *const argv[]);
+```
+ *file* represents the file name associated to the file being executed.
+ *argv* is a null-terminated array of character pointers.
+ 
 # Development and Testing Roadmap:
 _To Do_ : 
   * Base Class #1(https://github.com/cs100/assignment-caffeineorfeed/issues/1)
