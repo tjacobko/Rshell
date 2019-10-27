@@ -20,10 +20,10 @@ Another class we have is the **Traversal** class which moves the user across the
 Because we are unfamiliar with the three functions: waitpid(), execvp(), and fork(). We will attempt to implement and run each function by itself in order to get a grasp on the functionality of them. Additionally, we will test all three functions together to test and run the command lines we will use in Assignment 2.
 # Development and Testing Roadmap:
 _To Do_ : 
-  * Base Class (#1)
+  * Base Class #1
        * ```virtual void execute() = 0;```
-  * Reader Class (#2)
-  * Git Class (#3)
+  * Reader Class #2
+  * Git Class #3
        * Add, push, commit, clone, etc . . .
-  * Traversal Class (#4)
+  * Traversal Class #4
        * cd, ls, search, etc . . .
