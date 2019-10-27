@@ -6,6 +6,7 @@
 This program is a basic command shell called rshell. This project aims to further our understanding of working in a group environment and utilizing methods such as SCRUM, AGILE, WATERFALL, etc. We will implement composite patterns and strategy patterns to structure programs.
 
 # Diagram:
+![OMT](https://raw.githubusercontent.com/cs100/assignment-caffeineorfeed/master/images/Rshell%20OMT.png?token=ANL74FKUPMIWN2GJ6I2QS325XY5P4)
 
 # Class Descriptions:
 **Base Class**(To be named...): Our Base class is a class that can execute commands from a reader. This base class also has an aggregation relationship with a **Reader** class. The reader class takes in members and searches for the appropriate classes. It also has to be able to read in inclusion/exclusion values such as *;*, *&&* and *||*.
