@@ -22,7 +22,7 @@ Because we are unfamiliar with the three functions: waitpid(), execvp(), and for
 _To Do_ : 
   * Base Class (https://github.com/cs100/assignment-caffeineorfeed/issues/1)
        * ```virtual void execute() = 0;```
-  * Reader Class #2
+  * Reader Class (https://github.com/cs100/assignment-caffeineorfeed/issues/2)
   * Git Class #3
        * Add, push, commit, clone, etc . . .
   * Traversal Class #4
