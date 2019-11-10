@@ -6,7 +6,7 @@
 This program is a basic command shell called rshell. We will implement a composite pattern to create a working command line, which will be capable of reading in user input through a reader and decipher the correct command based on what is read by choosing the correct class.
 
 # Diagram:
-![OMT](file:///C:/Users/Jacob%20Ko/Downloads/Rshell%20OMT.pdf)
+![OMT](https://imgur.com/P19INiu)
 
 # Class Descriptions:
 **Base Class**(To be named...): Our Base class is a class that can execute commands from a reader. This base class also has an aggregation relationship with a **Reader** class. The reader class takes in members and searches for the appropriate classes. It also has to be able to read in inclusion/exclusion values such as *;*, *&&* and *||*.
