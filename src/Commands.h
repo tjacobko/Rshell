@@ -4,7 +4,8 @@
 class Commands : public Base {
 	public:
 		Commands();
-	
+		
+		virtual bool execute();	
 };
 
 #endif
