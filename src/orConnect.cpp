@@ -3,7 +3,10 @@
 
 #include "orConnect.h"
 
-orConnector::orConnector() : Base() {}
+orConnector::orConnector() : Base() {
+	this->lhs = nullptr;
+	this->rhs = nullptr;
+}
 
 orConnector::orConnector(Base* lhs, Base* rhs) : Base() {
 	this->lhs = lhs;

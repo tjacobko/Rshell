@@ -3,7 +3,10 @@
 
 #include "ampersand.h"
 
-Ampersand::Ampersand() : Base() {}
+Ampersand::Ampersand() : Base() {
+	this-> lhs = nullptr;
+	this-> rhs = nullptr;
+}
 
 Ampersand::Ampersand(Base* lhs, Base* rhs) : Base() {
 	this-> lhs = lhs;

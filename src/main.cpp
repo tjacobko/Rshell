@@ -2,9 +2,16 @@
 #include <string>
 #include <vector>
 
-std::string Decipher(std::string sub) {
+#include "Base.h"
+#include "ampersand.cpp"
+#include "orConnect.cpp"
+#include "semicolon.cpp"
+#include "Exit.cpp"
+
+Base* Decipher(std::string sub) {
     std::string command;
     std::string argument;    
+    Base* push = nullptr;
 
     for (int i = 0; i < sub.length(); i++) {
 	if (sub.at(i) != ' ') {
@@ -14,21 +21,23 @@ std::string Decipher(std::string sub) {
 	    break;
 	}
     }
-
-    if (command.length() == sub.length()) {
-	return command;
-    }
-    else {
+    if (command.length() != sub.length()) {
 	sub.erase(0, command.length() + 1);
-	argument = sub;
-	std::cout << "Argument(s): "  << argument << std::endl;
+        argument = sub;
     }
-    return command;
+    
+    if (command == "exit") {
+	push = new Exit();
+	return push;
+    }
+
+    return push;
 }
 
 void Parser(std::string mystr) {
     std::string sub = "";
-    std::vector<std::string> connectors; // CHANGE TO BASE TYPE
+    std::vector<Base*> commands;
+    std::vector<Base*> connectors;
     for (int i = 0; i < mystr.length(); i++) {
         if (mystr.at(i) != '&' && mystr.at(i) != '|' && mystr.at(i) != ';') {
             sub += mystr.at(i);
@@ -37,38 +46,30 @@ void Parser(std::string mystr) {
 	    if (mystr.at(i) != ';') {
 		sub.pop_back();
 	    }
-	    std::cout << "Command: "  << Decipher(sub) << std::endl;
-            std::cout << "Substring: " << sub << std::endl;
+            commands.push_back(Decipher(sub));
             sub = "";
 	}
 
-	// INITIALIZE NEW BASE TYPE CONNECTORS
         if (mystr.at(i) == '&') {
-            connectors.push_back("&&");
+            connectors.push_back(new Ampersand());
             i = i + 2;
         }
         else if (mystr.at(i) == '|') {
-            connectors.push_back("||");
+            connectors.push_back(new orConnector());
             i = i + 2;
         }
         else if (mystr.at(i) == ';') {
-            connectors.push_back(";");
+            connectors.push_back(new Semicolon());
 	    i++;
         }
     }
-    std::cout << "Command: "  << Decipher(sub) << std::endl;
-    std::cout << "Substring: " << sub << std::endl;
-
-    for (int j = 0; j < connectors.size(); j++) {
-	std::cout << connectors.at(j) << std::endl;
-    }
+    commands.push_back(Decipher(sub));
 }
 
 void commandline() {   
     std::string mystr;
     std::cout << "$ ";
     std::getline(std::cin, mystr);
-    //std::cout << mystr << std::endl;
 
     Parser(mystr);
 }

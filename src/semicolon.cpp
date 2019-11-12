@@ -3,7 +3,10 @@
 
 #include "semicolon.h"
 
-Semicolon::Semicolon() : Base() {}
+Semicolon::Semicolon() : Base() {
+	this->lhs = nullptr;
+	this->rhs = nullptr;
+}
 
 Semicolon::Semicolon(Base* lhs, Base* rhs) : Base() {
 	this->lhs = lhs;

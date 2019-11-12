@@ -3,7 +3,7 @@
 
 #include "Exit.h"
 
-Exit::Exit() {}
+Exit::Exit() : Base() {}
 
 bool Exit::execute() {
 	exit(0);
