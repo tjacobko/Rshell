@@ -1,11 +1,14 @@
 #ifndef __SEMICOLON_CPP__
 #define __SEMICOLON_CPP__
 
-#include "Semicolon.h"
-#include "Connector.h"
+#include "semicolon.h"
 
-Semicolon::Semicolon() : Connector() {}
-Semicolon::Semicolon(Base* lhs, Base* rhs) : Connector(lhs, rhs) {}
+Semicolon::Semicolon() : Base() {}
+
+Semicolon::Semicolon(Base* lhs, Base* rhs) : Base() {
+	this->lhs = lhs;
+	this->rhs = rhs;
+}
 
 bool Semicolon::execute() {
 	lhs->execute();

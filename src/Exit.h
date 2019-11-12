@@ -1,10 +1,9 @@
 #ifndef __EXIT_H__
 #define __EXIT_H__
 
-#include "Commands.h"
 #include "Base.h"
 
-class Exit : public Commands {
+class Exit : public Base {
 	public:
 		Exit();
 		virtual bool execute();

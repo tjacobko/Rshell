@@ -1,13 +1,16 @@
 #ifndef __SEMICOLON_H__
 #define __SEMICOLON_H__
 
-#include "Connector.h"
+#include "Base.h"
 
-class Semicolon : public Connector {
+class Semicolon : public Base {
 	public:
 		Semicolon();
 		Semicolon(Base* lhs, Base* rhs);
 
 		virtual bool execute();
+	private:
+		Base* lhs;
+		Base* rhs;
 };
 #endif

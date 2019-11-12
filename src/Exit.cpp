@@ -2,8 +2,6 @@
 #define __EXIT_CPP__
 
 #include "Exit.h"
-#include "Commands.h"
-#include "Base.h"
 
 Exit::Exit() {}
 

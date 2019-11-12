@@ -1,12 +1,17 @@
 #ifndef __ORCONNECT_H__
 #define __ORCONNECT_H__
 
-#include "Connector.h"
+#include "Base.h"
 
-class orConnector : public Connector {
+class orConnector : public Base {
 	public:
 		orConnector();
 		orConnector(Base* lhs, Base* rhs);
 
 		virtual bool execute();
+	private:
+		Base* lhs;
+		Base* rhs;
 };
+
+#endif

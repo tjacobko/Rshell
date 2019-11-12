@@ -2,10 +2,13 @@
 #define __AMPERSAND_CPP__
 
 #include "ampersand.h"
-#include "Connector.h"
 
-Ampersand::Ampersand() : Connector() {}
-Ampersand::Ampersand(Base* lhs, Base* rhs) : Connector(lhs, rhs) {}
+Ampersand::Ampersand() : Base() {}
+
+Ampersand::Ampersand(Base* lhs, Base* rhs) : Base() {
+	this-> lhs = lhs;
+	this-> rhs = rhs;
+}
 
 bool Ampersand::execute() {
 	if(lhs->execute()) {
@@ -18,7 +21,7 @@ bool Ampersand::execute() {
 	}
 	else {
 		return false;
-	
+	}	
 }
 
-#define
+#endif

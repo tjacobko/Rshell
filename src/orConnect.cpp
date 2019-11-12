@@ -1,11 +1,14 @@
 #ifndef __ORCONNECT_CPP__
 #define __ORCONNECT_CPP__
 
-#include "Connector.h"
-#include "orConnector.h"
+#include "orConnect.h"
 
-orConnect::orConnect() : Connector() {}
-orConnect::orConnect(Base* lhs, Base* rhs) : Connector(lhs, rhs) {}
+orConnector::orConnector() : Base() {}
+
+orConnector::orConnector(Base* lhs, Base* rhs) : Base() {
+	this->lhs = lhs;
+	this->rhs = rhs;
+}
 
 bool orConnector::execute() {
 	if(!lhs->execute()) {
