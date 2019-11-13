@@ -15,7 +15,13 @@ TEST(ListDirectoryTest, ListExecute2) {
 }
 
 TEST(ListDirectoryTest, ListExecute3) {
+	Base* test = new List("-l");
+	EXPECT_EQ(test->execute(), true);
+}
+
+TEST(ListDirectoryTest, ListExecute4) {
 	Base* test = new List("-l -a");
 	EXPECT_EQ(test->execute(), true);
 }
+
 #endif

@@ -36,13 +36,18 @@ bool List::execute() {
                 permList[i] = argList.at(i);
         }
 
-	// Need fork and wait to do more processes after execvp
-	/*pid_t pid = fork();
+	pid_t pid = fork();
 
-	if (pid == )*/
-	
-	if (execvp(permList[0], permList) == -1) {
-		perror("exec");
+	if (pid == 0) {
+		if (execvp(permList[0], permList) == -1) {
+			perror("ls failed execute");
+		}
+	}
+	if (pid > 0) {
+		if (wait(0) == -1) {
+			perror("wait error");
+		}
+		return true;
 	}
 }
 
