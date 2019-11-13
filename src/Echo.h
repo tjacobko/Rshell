@@ -8,6 +8,8 @@ class Echo : public Base {
 		Echo();
 		Echo(std::string args);
 		bool execute();
+	private:
+		std::vector<char*> argList;
 };
 
 #endif

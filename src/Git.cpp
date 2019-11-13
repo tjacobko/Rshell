@@ -43,28 +43,24 @@ Git::Git(std::string args) {
 }
 
 bool Git::execute() {
-	pid_t pid;
-	int size = argsList.size();
-	
-	char* permList[size];
-	for(unsigned int i = 0; i < size; ++i) {
+	char* permList[argsList.size()];
+	for(unsigned int i = 0; i < argsList.size(); ++i) {
 		permList[i] = argsList.at(i);
 	}
 	
-	//char* permList[] = {argsArr};
-	//push vector elements into array
-	/*
-	for(unsigned int i = 0; i < size; ++i){
-		permList[i] = argsList[i];
-	}
-	*/
-	if((pid = fork()) == -1) {
-		perror("fork() error");
+	pid_t pid = fork();
+	
+	if(pid == 0) {
+		if(execvp(permList[0], permList) == -1) {
+			perror("execute failed execute");
+		}
 		return false;
 	}
 
-	else if(pid == 0) {
-		execvp("git", permList);
+	if(pid > 0) {
+		if(wait(0) == -1) {
+			perror("wait error");
+		}
 		return true;
 	}
 }
