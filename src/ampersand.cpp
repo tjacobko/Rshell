@@ -13,17 +13,17 @@ Ampersand::Ampersand(Base* lhs, Base* rhs) : Base() {
 	this-> rhs = rhs;
 }
 
+void Ampersand::setLHS(Base* lhs) {
+	this-> lhs = lhs;
+}
+
+void Ampersand::setRHS(Base* rhs) {
+	this-> rhs = rhs;
+}
+
 bool Ampersand::execute() {
 	if(lhs->execute()) {
-		if(rhs->execute()) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else {
-		return false;
+		rhs->execute();
 	}	
 }
 

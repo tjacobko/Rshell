@@ -13,6 +13,14 @@ Semicolon::Semicolon(Base* lhs, Base* rhs) : Base() {
 	this->rhs = rhs;
 }
 
+void Semicolon::setLHS(Base* lhs) {
+	this->lhs = lhs;
+}
+
+void Semicolon::setRHS(Base* rhs) {
+	this->rhs = rhs;
+}
+
 bool Semicolon::execute() {
 	lhs->execute();
 	if(rhs->execute()) {

@@ -8,6 +8,8 @@ class List : public Base {
 		List();
 		List(std::string args);
 		bool execute();
+	private:
+		std::vector<char*> argList;
 };
 
 #endif

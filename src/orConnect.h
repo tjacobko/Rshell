@@ -7,7 +7,8 @@ class orConnector : public Base {
 	public:
 		orConnector();
 		orConnector(Base* lhs, Base* rhs);
-
+		void setLHS(Base* lhs);
+		void setRHS(Base* rhs);
 		virtual bool execute();
 	private:
 		Base* lhs;

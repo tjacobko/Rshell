@@ -13,6 +13,14 @@ orConnector::orConnector(Base* lhs, Base* rhs) : Base() {
 	this->rhs = rhs;
 }
 
+void orConnector::setLHS(Base* lhs) {
+	this->lhs = lhs;
+}
+
+void orConnector::setRHS(Base* rhs) {
+	this->rhs = rhs;
+}
+
 bool orConnector::execute() {
 	if(!lhs->execute()) {
 		if(rhs->execute()) {

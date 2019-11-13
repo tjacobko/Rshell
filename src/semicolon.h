@@ -7,7 +7,8 @@ class Semicolon : public Base {
 	public:
 		Semicolon();
 		Semicolon(Base* lhs, Base* rhs);
-
+		void setLHS(Base* lhs);
+		void setRHS(Base* rhs);
 		virtual bool execute();
 	private:
 		Base* lhs;
