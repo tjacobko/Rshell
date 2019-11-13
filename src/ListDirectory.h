@@ -7,9 +7,11 @@ class List : public Base {
 	public:
 		List();
 		List(std::string args);
+		~List();
 		bool execute();
 	private:
-		std::vector<char*> argList;
+		int size;
+		char** argList = new char*[size];
 };
 
 #endif

@@ -13,7 +13,12 @@
 class Base {
 	public:
 		Base() {};
+		virtual ~Base() = 0;
 		virtual bool execute() = 0;
 };
+
+Base::~Base() {
+	std::cout << "Base Destructor called???" << std::endl;
+}
 
 #endif

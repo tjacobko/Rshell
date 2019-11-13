@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "ListDirectory_test.cpp"
+#include "MakeDirectory_test.cpp"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

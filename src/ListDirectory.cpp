@@ -3,50 +3,63 @@
 
 #include "ListDirectory.h"
 
-List::List() {
+List::List() : Base() {
+	this->size = 2;
 	std::string ls = "ls";
-	this->argList.push_back((char*)ls.c_str());
-	this->argList.push_back(NULL);
+	this->argList[0] = (char*)ls.c_str();
+	this->argList[1] = NULL;
 }
 
-List::List(std::string args) {
-	std::string word;
-	char* temp = nullptr;
-		
+List::List(std::string args) : Base() {
+	std::string word = "";
 	std::string ls = "ls";
-	this->argList.push_back((char*)ls.c_str());
+	int count = 3;
+
+	for (int i = 0; i < args.length(); i++) {
+		if (args.at(i) == ' ') {
+			count++;
+		}
+	}
+	this->size = count;
+	
+	this->argList[0] = (char*)ls.c_str();
+	int arrCount = 1;
 	for (int i = 0; i < args.length(); i++) {
 		if (args.at(i) != ' ') {
 			word += args.at(i);
 		}
 		else {
-			temp = (char*)word.c_str();
-			i++;
-			this->argList.push_back(temp);
+			this->argList[arrCount] = (char*)word.c_str();
+			word = "";
 		}
 	}
-	temp = (char*)word.c_str();
-	this->argList.push_back(temp);
-	this->argList.push_back(NULL);
+	this->argList[arrCount] = (char*)word.c_str();
+	this->argList[arrCount+1] = NULL;
+}
+
+List::~List() {
+	delete[] this->argList;
+	delete this;
+	std::cout << "Destructor called" << std::endl;
 }
 
 bool List::execute() {
-	char* permList[argList.size()];
-        for (int i = 0; i < argList.size(); i++) {
-                permList[i] = argList.at(i);
-        }
-
 	pid_t pid = fork();
-
-	if (pid == 0) {
-		if (execvp(permList[0], permList) == -1) {
+	
+	if (pid < 0) {
+		perror("fork() error");
+	}
+	if (pid == 0) { // Child processes
+		if (execvp(this->argList[0], this->argList) == -1) {
 			perror("ls failed execute");
 		}
+		//exit(0);
 	}
-	if (pid > 0) {
-		if (wait(0) == -1) {
+	else { // Parent processes
+		if (wait(NULL) == -1) {
 			perror("wait error");
 		}
+		//delete[] argList;
 		return true;
 	}
 }

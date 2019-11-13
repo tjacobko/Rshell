@@ -8,6 +8,8 @@
 #include "semicolon.cpp"
 #include "Exit.cpp"
 #include "ListDirectory.cpp"
+#include "MakeDirectory.cpp"
+#include "Echo.cpp"
 
 Base* Decipher(std::string sub) {
     std::string command;
@@ -38,6 +40,22 @@ Base* Decipher(std::string sub) {
 	}
 	push = new List(argument);
 	return push;
+    }
+    else if (command == "mkdir") {
+	if (argument == "") {
+	    push = new MkDir();
+	    return push;
+	}
+	push = new MkDir(argument);
+        return push;
+    }
+    else if (command == "echo") {
+	if (argument == "") {
+            push = new Echo();
+            return push;
+        }
+	push = new Echo(argument);
+        return push;
     }
 
     return push;

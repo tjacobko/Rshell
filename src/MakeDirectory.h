@@ -7,7 +7,9 @@ class MkDir : public Base {
 	public:
 		MkDir();
 		MkDir(std::string args);
-		bool execute();
+		virtual bool execute();
+	private:
+		std::vector<char*> argList;
 };
 
 #endif
