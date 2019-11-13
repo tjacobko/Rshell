@@ -3,54 +3,46 @@
 
 #include "ListDirectory.h"
 
-List::List() {}
+List::List() {
+	std::string ls = "ls";
+	this->argList.push_back((char*)ls.c_str());
+	this->argList.push_back(NULL);
+}
 
 List::List(std::string args) {
 	std::string word;
-	const char* charWord = nullptr;
 	char* temp = nullptr;
-	/*int pos = 0;
-	int size = 1;
-	for (int i = 0; i < args.length(); i++) {
-		if (args.at(i) == ' ') {
-			size++;
-		}
-	}
-	this->argList[size];*/
-
+		
+	std::string ls = "ls";
+	this->argList.push_back((char*)ls.c_str());
 	for (int i = 0; i < args.length(); i++) {
 		if (args.at(i) != ' ') {
 			word += args.at(i);
 		}
 		else {
-			charWord = word.c_str();
-			strcpy(temp, charWord);
+			temp = (char*)word.c_str();
 			i++;
 			this->argList.push_back(temp);
 		}
 	}
-	charWord = word.c_str();
-	strcpy(temp, charWord);
+	temp = (char*)word.c_str();
 	this->argList.push_back(temp);
 	this->argList.push_back(NULL);
-
-	std::cout << argList.size() << std::endl;
 }
 
 bool List::execute() {
-	pid_t pid;
 	char* permList[argList.size()];
-	for (int i = 0; i < argList.size(); i++) {
-		permList[i] = argList.at(i);
-	}
+        for (int i = 0; i < argList.size(); i++) {
+                permList[i] = argList.at(i);
+        }
+
+	// Need fork and wait to do more processes after execvp
+	/*pid_t pid = fork();
+
+	if (pid == )*/
 	
-	if ((pid = fork()) == -1) {
-		perror("fork() error");
-		return false;
-	}
-	else if (pid == 0) {
-		execvp("ls", permList);
-		return true;
+	if (execvp(permList[0], permList) == -1) {
+		perror("exec");
 	}
 }
 

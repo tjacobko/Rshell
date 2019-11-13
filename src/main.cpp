@@ -7,10 +7,11 @@
 #include "orConnect.cpp"
 #include "semicolon.cpp"
 #include "Exit.cpp"
+#include "ListDirectory.cpp"
 
 Base* Decipher(std::string sub) {
     std::string command;
-    std::string argument;    
+    std::string argument = "";
     Base* push = nullptr;
 
     for (int i = 0; i < sub.length(); i++) {
@@ -28,6 +29,14 @@ Base* Decipher(std::string sub) {
     
     if (command == "exit") {
 	push = new Exit();
+	return push;
+    }
+    else if (command == "ls") {
+	if (argument == "") {
+	    push = new List();
+	    return push;
+	}
+	push = new List(argument);
 	return push;
     }
 
@@ -64,6 +73,11 @@ void Parser(std::string mystr) {
         }
     }
     commands.push_back(Decipher(sub));
+
+    // TEST
+    for (int i = 0; i < commands.size(); i++) {
+	commands.at(i)->execute();
+    }
 }
 
 void commandline() {   
