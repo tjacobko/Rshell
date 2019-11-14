@@ -13,6 +13,10 @@ Semicolon::Semicolon(Base* lhs, Base* rhs) : Base() {
 	this->rhs = rhs;
 }
 
+Semicolon::~Semicolon() {
+
+}
+
 void Semicolon::setLHS(Base* lhs) {
 	this->lhs = lhs;
 }
@@ -21,12 +25,11 @@ void Semicolon::setRHS(Base* rhs) {
 	this->rhs = rhs;
 }
 
-bool Semicolon::execute() {
-	lhs->execute();
-	if(rhs->execute()) {
-		return true;
+void Semicolon::execute() {
+	if(this->lhs->getRun() == false) {
+		this->lhs->execute();
 	}
-	return false;
+	this->rhs->execute();
 }
 
 #endif
