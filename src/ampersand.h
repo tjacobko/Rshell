@@ -7,9 +7,10 @@ class Ampersand : public Base {
 	public:
 		Ampersand();
 		Ampersand(Base* lhs, Base* rhs);
+		~Ampersand();
 		void setLHS(Base* lhs);
 		void setRHS(Base* rhs);
-		virtual bool execute();
+		virtual void execute();
 	private:
 		Base* lhs;
 		Base* rhs;

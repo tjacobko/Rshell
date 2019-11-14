@@ -4,27 +4,37 @@
 #include "ampersand.h"
 
 Ampersand::Ampersand() : Base() {
-	this-> lhs = nullptr;
-	this-> rhs = nullptr;
+	this->lhs = nullptr;
+	this->rhs = nullptr;
 }
 
 Ampersand::Ampersand(Base* lhs, Base* rhs) : Base() {
-	this-> lhs = lhs;
-	this-> rhs = rhs;
+	this->lhs = lhs;
+	this->rhs = rhs;
+}
+
+Ampersand::~Ampersand() {
+
 }
 
 void Ampersand::setLHS(Base* lhs) {
-	this-> lhs = lhs;
+	this->lhs = lhs;
 }
 
 void Ampersand::setRHS(Base* rhs) {
-	this-> rhs = rhs;
+	this->rhs = rhs;
 }
 
-bool Ampersand::execute() {
-	if(lhs->execute()) {
-		rhs->execute();
-	}	
+void Ampersand::execute() {
+	if(this->lhs->getRun() == false) {
+		this->lhs->execute();
+	}
+	if(this->lhs->getStatus() == true) {
+		this->rhs->execute();
+	}
+	else {
+		this->rhs->setRun(true);
+	}
 }
 
 #endif
