@@ -13,6 +13,8 @@ Echo::Echo() {
 Echo::Echo(std::string args) {
 	std::string word = " ";
 	std::string echo = "echo";
+	this->size = 3;
+	/*
 	int count;
 	
 	for(int i = 0;i < args.length(); ++i) {
@@ -34,7 +36,10 @@ Echo::Echo(std::string args) {
 		}
 	}
 	this->argList[arrCount] = (char*)word.c_str();
-	this->argList[arrCount+1] = NULL;
+	this->argList[arrCount+1] = NULL;*/
+	argList[0] = (char*)echo.c_str();
+	argList[1] = (char*)args.c_str();
+	argList[2] = NULL;
 }
 
 Echo::~Echo() {
