@@ -1,0 +1,12 @@
+echo Hello World
+ls -a
+git status
+git branch
+ls
+mkdir
+ls -l
+echo CatMan
+mkdir SingleCommandsDirectory
+git status
+echo DogMan
+exit
