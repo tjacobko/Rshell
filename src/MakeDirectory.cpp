@@ -4,50 +4,69 @@
 #include "MakeDirectory.h"
 
 MkDir::MkDir() {
-	std::string ls = "mkdir";
-	this->argList.push_back((char*)ls.c_str());
-	this->argList.push_back(NULL);
+	this->size = 2;
+	std::string mkdir = "mkdir";
+	this->argList[0] = (char*)mkdir.c_str();
+	this->argList[1] = NULL;
 }
 
 MkDir::MkDir(std::string args) {
-	std::string word;
-	char* temp = nullptr;
-		
-	std::string ls = "mkdir";
-	this->argList.push_back((char*)ls.c_str());
-	for (int i = 0; i < args.length(); i++) {
-		if (args.at(i) != ' ') {
+	std::string word = "";
+	std::string mkdir = "mkdir";
+	int count = 3;
+	
+	for(int i = 0;i < args.length();++i) {
+		if(args.at(i) == ' ') {
+			count++;
+		}
+	}	
+	this->size = count;
+
+	this->argList[0] = (char*)mkdir.c_str();
+	int arrCount = 1;
+	for(int i = 0;i < args.length();++i) {
+		if(args.at(i) != ' ') {
 			word += args.at(i);
 		}
 		else {
-			temp = (char*)word.c_str();
-			i++;
-			this->argList.push_back(temp);
+			this->argList[arrCount] = (char*)word.c_str();
+			word = "";
 		}
 	}
-	temp = (char*)word.c_str();
-	this->argList.push_back(temp);
-	this->argList.push_back(NULL);
+	this->argList[arrCount] = (char*)word.c_str();
+	this->argList[arrCount+1] = NULL;
+	
 }
 
-bool MkDir::execute() {
-	char* permList[argList.size()];
-        for (int i = 0; i < argList.size(); i++) {
-                permList[i] = argList.at(i);
-        }
+MkDir::~MkDir() {
+	delete[] this->argList;
+	delete this;
+	//std::cout << "Destructor called" << std::endl;
+}
 
+void MkDir::execute() {
 	pid_t pid = fork();
-
-	if (pid == 0) {
-		if (execvp(permList[0], permList) == -1) {
-			perror("mkdir failed execute");
+	
+	if(pid < 0) {
+		this->status = false;
+		perror("fork() error");
+		return;
+	}
+	if(pid == 0) {
+		if(execvp(this->argList[0],this->argList) == -1) {
+			this->status = false;
+			perror("MkDir failed to execute");
+			return;
 		}
 	}
-	if (pid > 0) {
-		if (wait(0) == -1) {
+	else {
+		if(wait(NULL) == -1) {
+			this->status = false;
 			perror("wait error");
+			return;
 		}
-		return true;
+		this->status = true;
+		return;
 	}
 }
 
