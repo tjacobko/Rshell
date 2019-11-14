@@ -6,10 +6,19 @@
 class Echo : public Base {
 	public:
 		Echo();
+		~Echo();
 		Echo(std::string args);
-		bool execute();
+		virtual void execute();
+		/*
+		bool getStatus();
+		bool getRun();
+		void setRun(bool);
+		*/
 	private:
-		std::vector<char*> argList;
+		int size;
+		char** argList = new char*[size];
+		//bool run;
+		//bool status;
 };
 
 #endif

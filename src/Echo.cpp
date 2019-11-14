@@ -4,51 +4,81 @@
 #include "Echo.h"
 
 Echo::Echo() {
+	this->size = 2;
 	std::string echo = "echo";
-	this->argList.push_back((char*)echo.c_str());
-	this->argList.push_back(NULL);
+	this->argList[0] = (char*)echo.c_str();
+	this->argList[1] = NULL;
 }
 
 Echo::Echo(std::string args) {
-	std::string word;
-	char* temp = nullptr;
-
+	std::string word = " ";
 	std::string echo = "echo";
-	this->argList.push_back((char*)echo.c_str());
-	for(unsigned i = 0; i < args.length(); ++i) {
+	int count;
+	
+	for(int i = 0;i < args.length(); ++i) {
+		if(args.at(i) == ' ') {
+			count++;
+		}
+	}
+	this->size = count;
+	
+	this->argList[0] = (char*)echo.c_str();
+	int arrCount = 1;
+	for(int i = 0; i < args.length(); ++i) {
 		if(args.at(i) != ' ') {
 			word += args.at(i);
 		}
 		else {
-			temp = (char*)word.c_str();
-			i++;
-			this->argList.push_back(temp);
+			this->argList[arrCount] = (char*)word.c_str();
+			word = " ";
 		}
 	}
-	temp = (char*)word.c_str();
-	this->argList.push_back(temp);
-	this->argList.push_back(NULL);
+	this->argList[arrCount] = (char*)word.c_str();
+	this->argList[arrCount+1] = NULL;
 }
 
-bool Echo::execute() {
-	char* permList[argList.size()];
-	for(unsigned i = 0; i < argList.size(); i++) {
-		permList[i] = argList.at(i);
-	}
-	
+Echo::~Echo() {
+	delete[] this->argList;
+	delete this;
+	//std::cout << "Destructor called" << std::endl;
+}
+/*
+bool Echo::getStatus() {
+	return this->status;
+}
+
+bool Echo::getRun() {
+	return this->run;
+}
+
+void Echo::setRun(bool newRun) {
+	this->run = newRun;
+	return;
+}
+*/
+void Echo::execute() {
 	pid_t pid = fork();
 	
-	if(pid == 0) {
-		if(execvp(permList[0], permList) == -1) {
-			perror("echo failed execute");
-		}
-		return false;
+	if(pid < 0) {
+		this->status = false;
+		perror("fork() error");
+		return;
 	}
-	if(pid > 0) {
-		if(wait(0) == -1){
-			perror("wait error");
+	if(pid == 0) {
+		if(execvp(this->argList[0], this->argList) == -1) {
+			this->status = false;
+			perror("ls failed execute");
+			return;
 		}
-		return true;
+	}
+	else {
+		if(wait(NULL) == -1) {
+			this->status = false;
+			perror("wait error");
+			return;
+		}
+		this->status = true;
+		return;
 	}
 }
 
