@@ -4,20 +4,24 @@
 #include "../src/MakeDirectory.cpp"
 
 TEST(MakeDirectoryTest, MkDirExecute1) {
-	//Base* test = new MkDir("TEST_DIRECTORY");
-	//EXPECT_EQ(test->execute(), true);
+	Base* test = new MkDir();
+	test->execute();
 }
 
 TEST(MakeDirectoryTest, MkDirExecute2) {
-	Base* test = new MkDir();
-	EXPECT_EQ(test->execute(), true);
+	std::string arg = "testDirectory";
+	Base* test = new MkDir(arg);
+	test->execute();
 }
 
 TEST(MakeDirectoryTest, MkDirExecute3) {
-        //Base* test1 = new MkDir("TEST_DIRECTORY2");
-	//Base* test2 = new MkDir("TEST_DIRECTORY3");
-        //EXPECT_EQ(test1->execute(), true);
-	//EXPECT_EQ(test2->execute(), true);
+        std::string arg = "_im";
+	Base* test = new MkDir(arg);
+	test->execute();	
+
+	std::string arg2 = "_tired";
+	Base* test2 = new MkDir(arg2);
+	test2->execute();
 }
 
 #endif
