@@ -8,7 +8,7 @@ class List : public Base {
 		List();
 		List(std::string args);
 		~List();
-		bool execute();
+		virtual void execute();
 	private:
 		int size;
 		char** argList = new char*[size];

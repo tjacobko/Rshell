@@ -43,24 +43,31 @@ List::~List() {
 	std::cout << "Destructor called" << std::endl;
 }
 
-bool List::execute() {
+void List::execute() {
 	pid_t pid = fork();
 	
 	if (pid < 0) {
+		this->status = false;
 		perror("fork() error");
+		return;
 	}
 	if (pid == 0) { // Child processes
 		if (execvp(this->argList[0], this->argList) == -1) {
+			this->status = false;
 			perror("ls failed execute");
+			return;
 		}
 		//exit(0);
 	}
 	else { // Parent processes
 		if (wait(NULL) == -1) {
+			this->status = false;
 			perror("wait error");
+			return;
 		}
 		//delete[] argList;
-		return true;
+		this->status = true;
+		return;
 	}
 }
 
