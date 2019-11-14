@@ -15,4 +15,3 @@ mkdir SingleCommandsDirectory
 git status
 echo DogMan
 exit
-

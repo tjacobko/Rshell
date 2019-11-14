@@ -14,4 +14,3 @@ git branch; git status; echo no && echo way
 echo combination || echo move && echo streak
 ls -l && ls -a
 exit
-
