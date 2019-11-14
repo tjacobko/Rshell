@@ -7,10 +7,19 @@
 class Git : public Base {
 	public:
 		Git();
+		~Git();
 		Git(std::string args);
-		bool execute();
+		virtual void execute();
+		/*
+		bool getStatus();
+		bool getRun();
+		void setRun(bool);
+		*/
 	private:
-		std::vector<char*> argsList;
+		int size;
+		char** argList = new char*[size];
+		//bool status;
+		//bool run;
 };
 
 #endif
