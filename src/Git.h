@@ -10,16 +10,15 @@ class Git : public Base {
 		~Git();
 		Git(std::string args);
 		virtual void execute();
-		/*
-		bool getStatus();
-		bool getRun();
-		void setRun(bool);
-		*/
+		
+		virtual bool getStatus();
+		virtual bool getRun();
+		virtual void setRun(bool);
 	private:
 		int size;
 		char** argList = new char*[size];
-		//bool status;
-		//bool run;
+		bool status = false;
+		bool run = false;
 };
 
 #endif

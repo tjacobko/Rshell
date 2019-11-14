@@ -8,8 +8,11 @@ class orConnector : public Base {
 		orConnector();
 		orConnector(Base* lhs, Base* rhs);
 		~orConnector();
-		void setLHS(Base* lhs);
-		void setRHS(Base* rhs);
+		
+		bool getStatus() {}
+		bool getRun() {}
+		void setRun(bool newRun) {}
+
 		virtual void execute();
 	private:
 		Base* lhs;

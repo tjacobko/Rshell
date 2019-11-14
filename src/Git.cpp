@@ -50,7 +50,7 @@ Git::~Git() {
 	delete this;
 	//std::cout << "Destructor called" << std::endl;
 }
-/*
+
 bool Git::getStatus() {
 	return this->status;
 }
@@ -63,7 +63,7 @@ void Git::setRun(bool newRun) {
 	this->run = newRun;
 	return;
 }
-*/
+
 void Git::execute() {
 	pid_t pid = fork();
 	

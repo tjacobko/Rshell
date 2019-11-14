@@ -17,14 +17,6 @@ Ampersand::~Ampersand() {
 
 }
 
-void Ampersand::setLHS(Base* lhs) {
-	this->lhs = lhs;
-}
-
-void Ampersand::setRHS(Base* rhs) {
-	this->rhs = rhs;
-}
-
 void Ampersand::execute() {
 	if(this->lhs->getRun() == false) {
 		this->lhs->execute();

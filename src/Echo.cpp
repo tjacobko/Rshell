@@ -13,28 +13,10 @@ Echo::Echo() {
 Echo::Echo(std::string args) {
 	std::string word = " ";
 	std::string echo = "echo";
-	int count;
-	
-	for(int i = 0;i < args.length(); ++i) {
-		if(args.at(i) == ' ') {
-			count++;
-		}
-	}
-	this->size = count;
-	
-	this->argList[0] = (char*)echo.c_str();
-	int arrCount = 1;
-	for(int i = 0; i < args.length(); ++i) {
-		if(args.at(i) != ' ') {
-			word += args.at(i);
-		}
-		else {
-			this->argList[arrCount] = (char*)word.c_str();
-			word = " ";
-		}
-	}
-	this->argList[arrCount] = (char*)word.c_str();
-	this->argList[arrCount+1] = NULL;
+	this->size = 3;
+	argList[0] = (char*)echo.c_str();
+	argList[1] = (char*)args.c_str();
+	argList[2] = NULL;
 }
 
 Echo::~Echo() {
@@ -42,7 +24,7 @@ Echo::~Echo() {
 	delete this;
 	//std::cout << "Destructor called" << std::endl;
 }
-/*
+
 bool Echo::getStatus() {
 	return this->status;
 }
@@ -55,7 +37,7 @@ void Echo::setRun(bool newRun) {
 	this->run = newRun;
 	return;
 }
-*/
+
 void Echo::execute() {
 	pid_t pid = fork();
 	

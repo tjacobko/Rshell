@@ -17,14 +17,6 @@ Semicolon::~Semicolon() {
 
 }
 
-void Semicolon::setLHS(Base* lhs) {
-	this->lhs = lhs;
-}
-
-void Semicolon::setRHS(Base* rhs) {
-	this->rhs = rhs;
-}
-
 void Semicolon::execute() {
 	if(this->lhs->getRun() == false) {
 		this->lhs->execute();

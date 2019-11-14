@@ -43,6 +43,19 @@ List::~List() {
 	std::cout << "Destructor called" << std::endl;
 }
 
+bool List::getStatus() {
+	return this->status;
+}
+
+bool List::getRun() {
+        return this->run;
+}
+
+void List::setRun(bool newRun) {
+        this->run = newRun;
+        return;
+}
+
 void List::execute() {
 	pid_t pid = fork();
 	

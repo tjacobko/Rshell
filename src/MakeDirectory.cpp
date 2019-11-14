@@ -44,6 +44,19 @@ MkDir::~MkDir() {
 	//std::cout << "Destructor called" << std::endl;
 }
 
+bool MkDir::getStatus() {
+        return this->status;
+}
+
+bool MkDir::getRun() {
+        return this->run;
+}
+
+void MkDir::setRun(bool newRun) {
+        this->run = newRun;
+        return;
+}
+
 void MkDir::execute() {
 	pid_t pid = fork();
 	

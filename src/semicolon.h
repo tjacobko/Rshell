@@ -8,8 +8,11 @@ class Semicolon : public Base {
 		Semicolon();
 		Semicolon(Base* lhs, Base* rhs);
 		~Semicolon();
-		void setLHS(Base* lhs);
-		void setRHS(Base* rhs);
+		
+		bool getStatus() {};
+		bool getRun() {};
+		void setRun(bool newRun) {};
+
 		virtual void execute();
 	private:
 		Base* lhs;

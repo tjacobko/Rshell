@@ -15,14 +15,6 @@ orConnector::orConnector(Base* lhs, Base* rhs) : Base() {
 
 orConnector::~orConnector() {}
 
-void orConnector::setLHS(Base* lhs) {
-	this->lhs = lhs;
-}
-
-void orConnector::setRHS(Base* rhs) {
-	this->rhs = rhs;
-}
-
 void orConnector::execute() {
 	if(this->lhs->getRun() == false) {
 		this->lhs->execute();

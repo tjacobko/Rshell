@@ -9,16 +9,15 @@ class Echo : public Base {
 		~Echo();
 		Echo(std::string args);
 		virtual void execute();
-		/*
-		bool getStatus();
-		bool getRun();
-		void setRun(bool);
-		*/
+		
+		virtual bool getStatus();
+		virtual bool getRun();
+		virtual void setRun(bool);
 	private:
 		int size;
 		char** argList = new char*[size];
-		//bool run;
-		//bool status;
+		bool run = false;
+		bool status = false;
 };
 
 #endif
