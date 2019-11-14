@@ -64,12 +64,16 @@ Base* Decipher(std::string sub) {
 void Parser(std::string mystr) {
     std::string sub = "";
     std::vector<Base*> commands;
+    std::vector<std::string> connectorsString;
     std::vector<Base*> connectors;
     for (int i = 0; i < mystr.length(); i++) {
-        if (mystr.at(i) != '&' && mystr.at(i) != '|' && mystr.at(i) != ';') {
+        if (mystr.at(i) != '&' && mystr.at(i) != '|' && mystr.at(i) != ';' && mystr.at(i) != '#') {
             sub += mystr.at(i);
         }
 	else {
+	    if (mystr.at(i) == '#') {
+		break;
+	    }
 	    if (mystr.at(i) != ';') {
 		sub.pop_back();
 	    }
@@ -78,32 +82,66 @@ void Parser(std::string mystr) {
 	}
 
         if (mystr.at(i) == '&') {
-            connectors.push_back(new Ampersand());
+            connectorsString.push_back("&&");
             i = i + 2;
         }
         else if (mystr.at(i) == '|') {
-            connectors.push_back(new orConnector());
+            connectorsString.push_back("||");
             i = i + 2;
         }
         else if (mystr.at(i) == ';') {
-            connectors.push_back(new Semicolon());
+            connectorsString.push_back(";");
 	    i++;
         }
     }
     commands.push_back(Decipher(sub));
 
-    // TEST
-    for (int i = 0; i < commands.size(); i++) {
-	commands.at(i)->execute();
+    for (int i = 0; i < connectorsString.size(); i++) {
+	for (int j = 0; j < commands.size()-1; j++) {
+	    if (connectorsString.at(i) == "&&") {
+		connectors.push_back(new Ampersand(commands.at(j), commands.at(j+1)));
+	    }
+	    else if (connectorsString.at(i) == "||") {
+                connectors.push_back(new orConnector(commands.at(j), commands.at(j+1)));
+            }
+	    else if (connectorsString.at(i) == ";") {
+                connectors.push_back(new Semicolon(commands.at(j), commands.at(j+1)));
+            }
+	    else {
+		std::cout << "Invalid connector." << std::endl;
+	    }
+	}
+    }
+    if (connectors.empty() != true) {
+    	for (int i = 0; i < connectors.size(); i++) {
+	    if (connectors.at(i) != nullptr) {
+		connectors.at(i)->execute();
+	    }
+	    else {
+		std::cout << "Unknown command." << std::endl;
+	    }
+	}
+    }
+    else {
+	for (int i = 0; i < commands.size(); i++) {
+	    if (commands.at(i) != nullptr) {
+		commands.at(i)->execute();
+	    }
+	    else {
+                std::cout << "Unknown command." << std::endl;
+            }
+	}
     }
 }
 
 void commandline() {   
     std::string mystr;
-    std::cout << "$ ";
-    std::getline(std::cin, mystr);
+    while (mystr != "exit") {
+    	std::cout << "$ ";
+    	std::getline(std::cin, mystr);
 
-    Parser(mystr);
+    	Parser(mystr);
+    }
 }
 
 int main(int argc, char **argv) {
