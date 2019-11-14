@@ -14,7 +14,21 @@ class Base {
 	public:
 		Base() {};
 		virtual ~Base() = 0;
-		virtual bool execute() = 0;
+		virtual void execute() = 0;
+		
+		bool getStatus() {
+			return this->status;
+		}
+		bool getRun() {
+			return this->run;
+		}
+		void setRun(bool newRun) {
+			this->run = newRun;
+			return;
+		}
+	protected:
+		bool status;
+		bool run;	
 };
 
 Base::~Base() {
