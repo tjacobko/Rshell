@@ -9,6 +9,6 @@ ls -a && ls -l #mkdir NODIRECTORY
 ls -a #|| ls -l
 echo Same && echo Dude #&& echo WHY
 git status && git branch #&& git add
-echo B#oy
+echo B #oy
 mkdir RAMEN || mkdir UDON #|| mkdir PHO
 exit
