@@ -5,7 +5,7 @@
 
 Exit::Exit() : Base() {}
 
-bool Exit::execute() {
+void Exit::execute() {
 	exit(0);
 }
 

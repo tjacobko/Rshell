@@ -6,6 +6,6 @@
 class Exit : public Base {
 	public:
 		Exit();
-		virtual bool execute();
+		virtual void execute();
 };
 #endif
