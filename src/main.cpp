@@ -3,13 +3,11 @@
 #include <vector>
 
 #include "Base.h"
+#include "Command.cpp"
 #include "ampersand.cpp"
 #include "orConnect.cpp"
 #include "semicolon.cpp"
 #include "Exit.cpp"
-#include "ListDirectory.cpp"
-#include "MakeDirectory.cpp"
-#include "Echo.cpp"
 
 Base* Decipher(std::string sub) {
     std::string command;
