@@ -14,11 +14,7 @@
 class Base {
 	public:
 		Base() {};
-		virtual void execute() = 0;
-		
-		virtual bool getStatus() = 0;
-		virtual bool getRun() = 0;
-		virtual void setRun(bool) = 0;
+		virtual bool execute() = 0;
 };
 
 #endif

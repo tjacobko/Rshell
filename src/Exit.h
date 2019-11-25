@@ -5,13 +5,7 @@
 
 class Exit : public Base {
 	public:
-		Exit();
-		virtual bool getStatus();
-		virtual bool getRun();
-		virtual void setRun(bool);
-		virtual void execute();
-	private:
-		bool status = false;
-		bool run = false;
+		Exit() {};
+		virtual bool execute();
 };
 #endif

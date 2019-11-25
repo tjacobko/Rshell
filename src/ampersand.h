@@ -4,17 +4,12 @@
 #include "Base.h"
 
 class Ampersand : public Base {
-	public:
-		Ampersand();
-		Ampersand(Base* lhs, Base* rhs);
-		~Ampersand();
-		virtual bool getStatus() {};
-		virtual bool getRun() {};
-		virtual void setRun(bool) {};
-
-		virtual void execute();
-	private:
-		Base* lhs;
-		Base* rhs;
+    public:
+        Ampersand(Base* lhs, Base* rhs) : Base() {this->lhs = lhs; this->rhs = rhs;}
+        virtual bool execute();
+    private:
+        Base* lhs = nullptr;
+        Base* rhs = nullptr;
 };
+
 #endif

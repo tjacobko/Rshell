@@ -6,7 +6,7 @@
 class Command : public Base {
     public:
         Command(std::string args) : Base() {this->args = args;}
-        virtual void execute();
+        virtual bool execute();
     private:
         std::string args;
         int sizeArr;

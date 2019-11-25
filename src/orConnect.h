@@ -1,23 +1,15 @@
-#ifndef __ORCONNECT_H__
-#define __ORCONNECT_H__
+#ifndef __ORCONNECTOR_H__
+#define __ORCONNECTOR_H__
 
 #include "Base.h"
 
-class orConnector : public Base {
-	public:
-		orConnector();
-		orConnector(Base* lhs, Base* rhs);
-		~orConnector();
-		
-		bool getStatus() {}
-		bool getRun() {}
-		void setRun(bool newRun) {}
-
-		virtual void execute();
-	private:
-		Base* lhs;
-		Base* rhs;
-		
+class OrConnector : public Base {
+    public:
+        OrConnector(Base* lhs, Base* rhs) : Base() {this->lhs = lhs; this->rhs = rhs;}
+        virtual bool execute();
+    private:
+        Base* lhs = nullptr;
+        Base* rhs = nullptr;
 };
 
 #endif

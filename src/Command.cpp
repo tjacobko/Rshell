@@ -1,6 +1,6 @@
 #include "Command.h"
 
-void Command::execute() {
+bool Command::execute() {
     this->sizeArr = 2;
     for (int i = 0; i < this->args.length(); i++) {
         if (this->args.at(i) == ' ') {
@@ -22,19 +22,36 @@ void Command::execute() {
     }
     argList[i] = NULL;
     
+    int fd[2];
+    pipe(fd);
+    int n = 0;
+    
     pid_t pid = fork();
     if (pid < 0) {
         perror("fork() error");
     }
     if (pid == 0) {
-        if (execvp(argList[0], argList) == -1) {
-            perror("ls failed execute");
+        close(fd[0]);
+        if (execvp(argList[0], argList) < 0) {
+            perror("failed execute");
+            n = 1;
+            write(fd[1], &n, 1);
         }
+        exit(1);
     }
     else {
-        if (wait(NULL) == -1) {
+        if (waitpid(pid, NULL, 0) == -1) {
             perror("wait error");
         }
-        return;
+        else {
+            close(fd[1]);
+            read(fd[0], &n, 1);
+            if (n == 1) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
     }
 }
