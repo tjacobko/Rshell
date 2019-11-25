@@ -14,7 +14,6 @@ void Parser(std::string mystr) {
     std::string sub = "";
     std::vector<Base*> commands;
     std::vector<std::string> connectorsString;
-    std::vector<Base*> connectors;
     std::stack<Base*> commandsStack;
     
     for (int i = 0; i < mystr.length(); i++) {
