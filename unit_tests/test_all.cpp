@@ -1,8 +1,5 @@
 #include "gtest/gtest.h"
-#include "ListDirectory_test.cpp"
-#include "Git_test.cpp"
-#include "Echo_test.cpp"
-#include "MakeDirectory_test.cpp"
+#include "Commands_test.cpp"
 #include "Exit_test.cpp"
 
 int main(int argc, char **argv) {

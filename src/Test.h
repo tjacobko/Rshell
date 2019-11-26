@@ -4,9 +4,12 @@
 #include "Base.h"
 
 class Test : public Base {
-	public:
-		Test() : Base() {};
-		virtual bool execute();
+    public:
+        Test(std::string args);
+        virtual bool execute();
+    private:
+        std::string flag = "";
+        std::string path = "";
 };
 
 #endif
