@@ -22,33 +22,33 @@ void Parser(std::string mystr) {
         if (mystr.at(i) != '&' && mystr.at(i) != '|' && mystr.at(i) != ';' && mystr.at(i) != '#') {
             sub += mystr.at(i);
         }
-	    else {
-	        if (mystr.at(i) == '#') {
-		        break;
-	        }
-	        if (mystr.at(i) != ';') {
-		        sub.pop_back();
-	        }
-	        if (sub == "exit" || sub == "Exit") {
-	            commands.push_back(new Exit());
-	        }
-		else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") { // NEW
-		    testArgs = sub.substr(5, sub.length()-5);
-		    commands.push_back(new TestF(testArgs));
-		    testArgs = "";
-		}
-		else if (sub.at(0) == '[' && sub.at(sub.length()-1) == ']') {
-		    testArgs = sub.substr(2, sub.length()-4);
-		    commands.push_back(new TestF(testArgs));
-		    testArgs = "";
-		}
-	        else {
-	            commands.push_back(new Command(sub));
-	        }
-            sub = "";
+	else {
+	    if (mystr.at(i) == '#') {
+		break;
 	    }
+	    if (mystr.at(i) != ';') {
+		sub.pop_back();
+	    }
+	    if (sub == "exit" || sub == "Exit") {
+	        commands.push_back(new Exit());
+	    }
+	    else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") { // NEW
+		testArgs = sub.substr(5, sub.length()-5);
+		commands.push_back(new TestF(testArgs));
+		testArgs = "";
+	    }
+	    else if (sub.at(0) == '[' && sub.at(sub.length()-1) == ']') {
+		testArgs = sub.substr(2, sub.length()-4);
+		commands.push_back(new TestF(testArgs));
+		testArgs = "";
+	    }
+	    else {
+	        commands.push_back(new Command(sub));
+	    }
+            sub = "";
+	}
 
-        if (mystr.at(i) == '&') {
+	if (mystr.at(i) == '&') {
             connectorsString.push_back("&&");
             i = i + 2;
         }
@@ -63,10 +63,20 @@ void Parser(std::string mystr) {
     }
     if (sub == "exit" || sub == "Exit") {
         commands.push_back(new Exit());
-	}
-	else {
-	    commands.push_back(new Command(sub));
-	}
+    }
+    else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") { // NEW
+        testArgs = sub.substr(5, sub.length()-5);
+        commands.push_back(new TestF(testArgs));
+        testArgs = "";
+    }
+    else if (sub.at(0) == '[' && sub.at(sub.length()-1) == ']') {
+        testArgs = sub.substr(2, sub.length()-4);
+        commands.push_back(new TestF(testArgs));
+        testArgs = "";
+    }
+    else {
+	commands.push_back(new Command(sub));
+    }
 
     if (connectorsString.empty() == true) {
         commands.at(0)->execute();

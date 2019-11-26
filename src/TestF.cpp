@@ -11,13 +11,9 @@ TestF::TestF(std::string args) : Base() {
         this->flag = temp.at(0);
         this->flag += temp.at(1);
 	this->path = temp.substr(3, temp.length()-3);
-	std::cout << "Flag: " << this->flag << std::endl;
-	std::cout << "Path: " << this->path << std::endl;
     }	
     else {
 	this->path = temp;
-	std::cout << "Flag: empty" << std::endl;
-	std::cout << "Path: " << this->path << std::endl;
     }
 }
 
