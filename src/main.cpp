@@ -12,6 +12,7 @@
 
 void Parser(std::string mystr) {
     std::string sub = "";
+    std::string testArgs = "";
     std::vector<Base*> commands;
     std::vector<std::string> connectorsString;
     std::stack<Base*> commandsStack;
@@ -30,6 +31,16 @@ void Parser(std::string mystr) {
 	        if (sub == "exit" || sub == "Exit") {
 	            commands.push_back(new Exit());
 	        }
+		else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") { // NEW
+		    testArgs = sub.substr(5, sub.length()-5);
+		    commands.push_back(new Test(testArgs));
+		    testArgs = "";
+		}
+		else if (sub.at(0) == '[' && sub.at(sub.length()-1) == ']') {
+		    testArgs = sub.substr(2, sub.length()-4);
+		    commands.push_back(new Test(testArgs));
+		    testArgs = "";
+		}
 	        else {
 	            commands.push_back(new Command(sub));
 	        }
