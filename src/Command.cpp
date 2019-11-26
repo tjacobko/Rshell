@@ -1,6 +1,9 @@
+#ifndef __COMMAND_CPP__
+#define __COMMAND_CPP__
+
 #include "Command.h"
 
-bool Command::execute() {
+bool Command::execute(){
     this->sizeArr = 2;
     for (int i = 0; i < this->args.length(); i++) {
         if (this->args.at(i) == ' ') {
@@ -55,3 +58,5 @@ bool Command::execute() {
         }
     }
 }
+
+#endif

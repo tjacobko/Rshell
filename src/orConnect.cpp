@@ -1,10 +1,10 @@
 #include "orConnect.h"
 
 bool OrConnector::execute() {
-    if (this->lhs->execute() == false) {
-        return this->rhs->execute();
+    if(!this->lhs->execute()) {
+       return this->rhs->execute();
     }
     else {
-        return false;
+        return true;
     }
 }
