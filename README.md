@@ -10,7 +10,7 @@ This program is a basic command shell called rshell. We will implement a composi
 
 # Class Descriptions:
 **Base Class** : The Base class is the class that all other classes derive from. We have a virtual destructor for our Base class. We use this destructor to call the derived destructor, then the inherited destructor.
-The class group is our **Connectors**, which link the command lines between each other. They all use the virtual void execute() function of the Base class in order to perform their own transformations of the function. Additionally, we have the group of **Command line** classes which utilize the Base class's virtual void execute() function to perform the intended command lines. These classes take advantage of the research topics we learned, i.e., waitpid(), execvp(), and fork() in order to work correctly.
+The class group is our **Connectors**, which link the command lines between each other. They all use the virtual void execute() function of the Base class in order to perform their own transformations of the function. Additionally, we have the group of **Command** classes which utilize the Base class's virtual void execute() function to perform the intended command lines. These classes take advantage of the research topics we learned, i.e., waitpid(), execvp(), and fork() in order to work correctly. 
 # Prototypes/Research:
 Because we are unfamiliar with the three functions: waitpid(), execvp(), and fork(). We will attempt to implement and run each function by itself in order to get a grasp on the functionality of them. Additionally, we will test all three functions together to test and run the command lines we will use in Assignment 2.
 
@@ -29,17 +29,25 @@ int execvp (const char *file, char *const argv[]);
  *file* represents the file name associated to the file being executed.
  *argv* is a null-terminated array of character pointers.
  
+ ***pipe()*** : is a connection between two processes. In our case we will use piping in order to get the data from our child process to make our command execute function correctly.
+ 
+ ***Test Commands*** : these commands are already integrated in bash. They test a multitude of commands, but in our case we only need to worry about the **-e, -f,** and **-d** flags. The tests will return either a true or false boolean.
+Alongside the test commands, we need to utilize macros in order to run these test commands. We will use ***S_ISREG*** and ***S_ISDIR*** to run the **-f** and **-d** flags. These macros will interpret the values of the stat struct and will evaluate true or false based on if the path is a regular file or regular directory.
+ 
+ 
 # Development and Testing Roadmap:
 _To Do_ : 
-  * Base Class #1(https://github.com/cs100/assignment-caffeineorfeed/issues/1)
-       * ```virtual void execute() = 0;```
-  * Command Class #2(https://github.com/cs100/assignment-caffeineorfeed/issues/2)
-  * Connector Class #3 (https://github.com/cs100/assignment-caffeineorfeed/issues/3)
-       * Add, push, commit, clone, etc . . .
-  * Unit Testing for each of the classes #5 (https://github.com/cs100/assignment-caffeineorfeed/issues/5)
-        * Make sure each class can work with each other.
-  * Parsing Function (most likely in the main.cpp) #6 (https://github.com/cs100/assignment-caffeineorfeed/issues/6)
-        * This needs to be able to parse a string for sorting.
-  * Integration Testing(script) for our classes #7 (https://github.com/cs100/assignment-caffeineorfeed/issues/7)
-         * Integration testing by using shell scripts
-  
+  * Test Class :  #10
+      * This class is for parsing the user input into flags and a path. It aims to work for three   
+      cases: if the input is -e, -f, or -d. 
+      * -e checks if the file exists,
+      * -f checks if the file exists *and* if the file is a regular file,
+      * -d checks if the file exists *and* if the file is a directory.
+         https://github.com/cs100/assignment-caffeineorfeed/issues/10
+  * Precedence Operators: #11
+      * Work on a precedence operator that performs whatever is in (.....) first.
+         https://github.com/cs100/assignment-caffeineorfeed/issues/11
+
+  * Unit Tests : #12
+      * Create tests for the new Test Class as well as tests for precedence operators. 
+         https://github.com/cs100/assignment-caffeineorfeed/issues/12
