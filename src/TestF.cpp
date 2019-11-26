@@ -4,30 +4,28 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <dirent.h>
 
 TestF::TestF(std::string args) : Base() {
-    if(args.at(0) == '-') {
-        this->flag = args.at(0);
-        this->flag += args.at(1);
-	this->path = args.substr(2, args.length()-2);
+    std::string temp = args;
+    if(temp.at(0) == '-') {
+        this->flag = temp.at(0);
+        this->flag += temp.at(1);
+	this->path = temp.substr(3, temp.length()-3);
+	std::cout << "Flag: " << this->flag << std::endl;
+	std::cout << "Path: " << this->path << std::endl;
     }	
-	else {
-		this->path = args;
-	}
-    //std::cout << this->flag << std::endl;
-    
-    //std::cout << this->path << std::endl;
+    else {
+	this->path = temp;
+	std::cout << "Flag: empty" << std::endl;
+	std::cout << "Path: " << this->path << std::endl;
+    }
 }
 
 bool TestF::execute() {
     struct stat buf;
     int temp = 0;
-   
-	//std::cout << this->path << std::endl;
- 	
+    
     temp = stat(this->path.c_str(), &buf);
-    //std::cout << temp << std::endl;
     if(this->flag == "-e" || this->flag == "") {
         if(temp == 0){
             std::cout << "(True)" << std::endl;
