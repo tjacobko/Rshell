@@ -9,6 +9,7 @@
 #include "orConnect.cpp"
 #include "semicolon.cpp"
 #include "Exit.cpp"
+#include "TestF.cpp"
 
 void Parser(std::string mystr) {
     std::string sub = "";
@@ -33,12 +34,12 @@ void Parser(std::string mystr) {
 	        }
 		else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") { // NEW
 		    testArgs = sub.substr(5, sub.length()-5);
-		    commands.push_back(new Test(testArgs));
+		    commands.push_back(new TestF(testArgs));
 		    testArgs = "";
 		}
 		else if (sub.at(0) == '[' && sub.at(sub.length()-1) == ']') {
 		    testArgs = sub.substr(2, sub.length()-4);
-		    commands.push_back(new Test(testArgs));
+		    commands.push_back(new TestF(testArgs));
 		    testArgs = "";
 		}
 	        else {
