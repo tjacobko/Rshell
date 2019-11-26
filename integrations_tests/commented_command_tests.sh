@@ -10,5 +10,5 @@ ls -a #|| ls -l
 echo Same && echo Dude #&& echo WHY
 git status && git branch #&& git add
 echo B #oy
-mkdir RAMEN || mkdir UDON #|| mkdir PHO
+mkdir RAMEN || mkdir UDON #&& mkdir PHO
 exit
