@@ -10,7 +10,7 @@ This program is a basic command shell called rshell. We will implement a composi
 
 # Class Descriptions:
 **Base Class** : The Base class is the class that all other classes derive from. We have a virtual destructor for our Base class. We use this destructor to call the derived destructor, then the inherited destructor.
-The class group is our **Connectors**, which link the command lines between each other. They all use the virtual void execute() function of the Base class in order to perform their own transformations of the function. Additionally, we have the group of **Command** classes which utilize the Base class's virtual void execute() function to perform the intended command lines. These classes take advantage of the research topics we learned, i.e., waitpid(), execvp(), and fork() in order to work correctly. 
+The class group is our **Connectors**, which link the command lines between each other. They all use the virtual void execute() function of the Base class in order to perform their own transformations of the function. Additionally, we have the group of **Command** classes which utilize the Base class's virtual void execute() function to perform the intended command lines. These classes take advantage of the research topics we learned, i.e., waitpid(), execvp(), and fork() in order to work correctly. Our **Test** class will implement the bash test command for test -e, -f, and -d.
 # Prototypes/Research:
 Because we are unfamiliar with the three functions: waitpid(), execvp(), and fork(). We will attempt to implement and run each function by itself in order to get a grasp on the functionality of them. Additionally, we will test all three functions together to test and run the command lines we will use in Assignment 2.
 
