@@ -10,8 +10,29 @@
 #include "semicolon.cpp"
 #include "Exit.cpp"
 #include "TestF.cpp"
+#include "Paren.cpp"
 
-void Parser(std::string mystr) {
+int FindLength(std::string str) {
+    std::stack<int> parenStack;
+    parenStack.push(0);
+    int i = 1;
+    while (parenStack.empty() != true) {
+        if (str.at(i) == '(') {
+            parenStack.push(0);
+            i++;
+        }
+        else if (str.at(i) == ')') {
+            parenStack.pop();
+            i++;
+        }
+        else {
+            i++;
+        }
+    }
+    return i;
+}
+
+Base* Parser(std::string mystr) {
     std::string sub = "";
     std::string testArgs = "";
     std::vector<Base*> commands;
@@ -19,8 +40,23 @@ void Parser(std::string mystr) {
     std::stack<Base*> commandsStack;
     
     for (int i = 0; i < mystr.length(); i++) {
-        if (mystr.at(i) != '&' && mystr.at(i) != '|' && mystr.at(i) != ';' && mystr.at(i) != '#') {
+        if (mystr.at(i) != '&' && mystr.at(i) != '|' && mystr.at(i) != ';' && mystr.at(i) != '#' && mystr.at(i) != '(' && mystr.at(i) != ')') {
             sub += mystr.at(i);
+        }
+        else if (mystr.at(i) == '(') {
+            int length = FindLength(mystr.substr(i));
+            std::string pstr = mystr.substr(i, length);
+            pstr.erase(pstr.begin());
+            pstr.pop_back();
+            commands.push_back(new Paren(Parser(pstr)));
+            i = i + length;
+            sub = "";
+            if (i > mystr.length()) {
+                break;
+            }
+	    else if (mystr.at(i) != ';') {
+		i++;
+	    }
         }
 	else {
 	    if (mystr.at(i) == '#') {
@@ -32,7 +68,7 @@ void Parser(std::string mystr) {
 	    if (sub == "exit" || sub == "Exit") {
 	        commands.push_back(new Exit());
 	    }
-	    else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") { // NEW
+	    else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") {
 		testArgs = sub.substr(5, sub.length()-5);
 		commands.push_back(new TestF(testArgs));
 		testArgs = "";
@@ -47,7 +83,7 @@ void Parser(std::string mystr) {
 	    }
             sub = "";
 	}
-
+	    
 	if (mystr.at(i) == '&') {
             connectorsString.push_back("&&");
             i = i + 2;
@@ -61,26 +97,27 @@ void Parser(std::string mystr) {
 	    i++;
         }
     }
-    if (sub == "exit" || sub == "Exit") {
-        commands.push_back(new Exit());
-    }
-    else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") { // NEW
-        testArgs = sub.substr(5, sub.length()-5);
-        commands.push_back(new TestF(testArgs));
-        testArgs = "";
-    }
-    else if (sub.at(0) == '[' && sub.at(sub.length()-1) == ']') {
-        testArgs = sub.substr(2, sub.length()-4);
-        commands.push_back(new TestF(testArgs));
-        testArgs = "";
-    }
-    else {
-	commands.push_back(new Command(sub));
+    if (sub != "") {
+        if (sub == "exit" || sub == "Exit") {
+            commands.push_back(new Exit());
+        }
+        else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") {
+            testArgs = sub.substr(5, sub.length()-5);
+            commands.push_back(new TestF(testArgs));
+            testArgs = "";
+        }
+        else if (sub.at(0) == '[' && sub.at(sub.length()-1) == ']') {
+            testArgs = sub.substr(2, sub.length()-4);
+            commands.push_back(new TestF(testArgs));
+            testArgs = "";
+        }
+        else {
+	        commands.push_back(new Command(sub));
+        }
     }
 
     if (connectorsString.empty() == true) {
-        commands.at(0)->execute();
-        return;
+        return commands.at(0);
     }
     else {
         for (int i = commands.size()-1; i >= 0; i--) {
@@ -104,7 +141,7 @@ void Parser(std::string mystr) {
             }
             commandsStack.push(connector);
         }
-        commandsStack.top()->execute();
+        return commandsStack.top();
     }
 }
 
@@ -114,7 +151,7 @@ void commandline() {
     	std::cout << "$ ";
     	std::getline(std::cin, mystr);
 
-    	Parser(mystr);
+    	Parser(mystr)->execute();
     }
 }
 
