@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash/sh
 ### exit_command_test ###
 
 #../bin/assignment-caffeineorfeed < exit_command_test

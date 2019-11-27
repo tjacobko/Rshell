@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash/sh
 ### single_command_tests ###
 
 #/bin/assignment-caffeineorfeed/integration_tests < single_command_tests 
