@@ -1,3 +1,8 @@
+#!/bin/sh
+### test_commands_test ###
+
+
+
 test -e src/main.cpp && echo main.cpp FOUND
 test -f src/main.cpp && echo main.cpp FOUND
 test -d src/ && echo src directory FOUND

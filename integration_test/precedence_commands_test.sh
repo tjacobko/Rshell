@@ -1,3 +1,6 @@
+#!/bin/sh
+### precedence_commands_test ###
+
 (echo Hello World)
 (echo Hi && git status) || echo Bye
 echo Yeeee || (echo WEEE && echo ZEEE) 
