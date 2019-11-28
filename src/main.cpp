@@ -15,6 +15,19 @@
 int FindLength(std::string str) {
     std::stack<int> parenStack;
     parenStack.push(0);
+    int count = 0;
+    for (int j = 0; j < str.length(); j++) {
+        if (str.at(j) == '(') {
+            count++;
+        }
+        else if (str.at(j) == ')') {
+            count--;
+        }
+    }
+    if (count != 0) {
+        return 0;
+    }
+
     int i = 1;
     while (parenStack.empty() != true) {
         if (str.at(i) == '(') {
@@ -45,6 +58,13 @@ Base* Parser(std::string mystr) {
         }
         else if (mystr.at(i) == '(') {
             int length = FindLength(mystr.substr(i));
+	    if (length == 0) {
+                std::cout << "Uneven number of parenthesis." << std::endl;
+                std::string newStr;
+                std::cout << "$ ";
+                std::getline(std::cin, newStr);
+                return Parser(newStr);
+            }
             std::string pstr = mystr.substr(i, length);
             pstr.erase(pstr.begin());
             pstr.pop_back();
