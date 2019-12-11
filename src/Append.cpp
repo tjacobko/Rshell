@@ -10,8 +10,11 @@ Append::Append(Base* lhs, Base* rhs) : Base(lhs,rhs) {}
 
 bool Append::execute() {
 	string outputFile = //read file from the rhs
-	out = open(outputFile.c_str(), O_WRONLY | O_APPEND | O_CREAT, S_IRSUR | S_IRGRP | S_IWUSR);
-		/* open(...) establishes connection between file and file descriptor
+	open(outputFile.c_str(), O_WRONLY | O_APPEND | O_CREAT, S_IRSUR | S_IRGRP | S_IWUSR);
+		/*
+ 			This should append the output of a command line to a file
+				
+  			open(...) establishes connection between file and file descriptor
  			O_WRONLY - open for write only
 			O_APPEND - file offset shall be set to the end of the file prior to each write
   			O_CREAT - if file exists, no nothing.
