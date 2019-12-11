@@ -4,27 +4,34 @@
 #include "Append.h"
 #include "Base.h"
 
-#include "fcntl.h" //open()
-#include "sys/stat.h" //for open()
+bool Append::execute() {
+    int pipefd[2];
+    pid_t cpid;
+    
+    pipe(pipefd);
 
-Append::Append(Base* lhs, Base* rhs) : Base(lhs,rhs) {}
-
-bool Append::execute(int in, int out) {
-	string outputFile = //read file from the rhs
-	open(outputFile.c_str(), O_WRONLY | O_APPEND | O_CREAT, S_IRSUR | S_IRGRP | S_IWUSR);
-		/*
- 			This should append the output of a command line to a file
-				
-  			open(...) establishes connection between file and file descriptor
- 			O_WRONLY - open for write only
-			O_APPEND - file offset shall be set to the end of the file prior to each write
-  			O_CREAT - if file exists, no nothing.
-				else, file is created
-  			S_IRSUR - read permission, owner
-			s_IRGRP - write permission, group
-			S_IWUSR - write permission, owner
-  		*/
-	return lhs->execute(in, out);
+    cpid = fork();
+    if (cpid < 0) {
+	perror("fork() error");
+    }
+    if (cpid == 0) {    // Child for left cmd
+        close(pipefd[0]);   // Close unused read end
+        dup2(pipefd[1], STDOUT_FILENO);     // Makes output go to pipe
+        close(pipefd[0]);
+        close(pipefd[1]);
+        this->lhs->execute();
+        exit(1);
+    }
+    else {
+        if (waitpid(cpid, NULL, 0) == -1) {
+            perror("wait error");
+        }
+        close(pipefd[1]);   // Close unused write end
+        dup2(pipefd[0], STDIN_FILENO);  // Get input from pipe
+        close(pipefd[0]);
+        close(pipefd[1]);
+        return this->rhs->execute();
+    }
 }
 
 #endif
