@@ -5,7 +5,7 @@
 
 class Append : public Base {
 	public:
-		Append(Base* lhs, Base* rhs);
+		Append(Base* lhs, Base* rhs) : Base() {this->lhs = lhs; this->rhs = rhs;}
 		virtual bool execute();
 	private:
 		Base* lhs = nullptr;
