@@ -5,13 +5,11 @@
 
 class Pipe : public Base {
 	public:
-		Pipe(Base* lhs, Base* rhs);
-		virtual bool execute();
-		void setRedir(int input, int output);
-	protected:
-		int inputRedir;
-		int outputRedir;
-			
+		Pipe(Base* lhs, Base* rhs) : Base() {this->lhs = lhs; this->rhs = rhs;}
+		virtual bool execute(int in, int out);
+	private:
+		Base* lhs = nullptr;
+		Base* rhs = nullptr;		
 };
 
 #endif
