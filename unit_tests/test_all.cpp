@@ -3,6 +3,8 @@
 #include "Test_unit.cpp"
 #include "Connectors_test.cpp"
 #include "Paren_test.cpp"
+#include "Append_test.cpp"
+
 #include "Exit_test.cpp"
 
 int main(int argc, char **argv) {
