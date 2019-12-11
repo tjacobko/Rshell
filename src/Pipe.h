@@ -6,7 +6,7 @@
 class Pipe : public Base {
 	public:
 		Pipe(Base* lhs, Base* rhs) : Base() {this->lhs = lhs; this->rhs = rhs;}
-		virtual bool execute(int in, int out);
+		virtual bool execute();
 	private:
 		Base* lhs = nullptr;
 		Base* rhs = nullptr;		

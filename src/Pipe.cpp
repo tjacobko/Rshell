@@ -4,25 +4,32 @@
 #include "Pipe.h"
 #include "unistd.h"
 
+bool Pipe::execute() {
+    int pipefd[2];
+    pid_t cpid;
+    
+    pipe(pipefd);
 
-bool Pipe::execute(int in, int out) {
-	int fds[2];
-	
-	if(pipe(fds) == -1) {
-		perror("piping error");
-		return false;
-	}
-
-	if(!this->lhs->execute(in, fds[1])) {
-		return false;
-	}
-	close(fds[1]);
-	
-	if(!this->rhs->execute(fds[0], out)) {
-		return false;
-	}
-	close(fds[0]);
-	return true;
+    cpid = fork();
+    if (cpid == 0) {    // Child for left cmd
+        close(pipefd[0]);   // Close unused read end
+        dup2(pipefd[1], STDOUT_FILENO);     // Makes output go to pipe
+        close(pipefd[0]);
+        close(pipefd[1]);
+        this->lhs->execute();
+        exit(1);
+    }
+    else {
+        if (waitpid(cpid, NULL, 0) == -1) {
+            perror("wait error");
+        }
+        close(pipefd[1]);   // Close unused write end
+        dup2(pipefd[0], STDIN_FILENO);  // Get input from pipe
+        close(pipefd[0]);
+        close(pipefd[1]);
+        bool ret = this->rhs->execute();
+        return ret;
+    }
 }
 
 #endif

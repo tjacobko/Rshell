@@ -7,6 +7,9 @@ class Append : public Base {
 	public:
 		Append(Base* lhs, Base* rhs);
 		virtual bool execute();
+	private:
+		Base* lhs = nullptr;
+        	Base* rhs = nullptr;
 };
 
 #endif
