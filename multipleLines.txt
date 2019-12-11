@@ -1,0 +1,6 @@
+We should
+be able
+to see
+the line
+numbers with
+cat -n
