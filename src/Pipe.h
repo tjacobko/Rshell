@@ -7,7 +7,11 @@ class Pipe : public Base {
 	public:
 		Pipe(Base* lhs, Base* rhs);
 		virtual bool execute();
-		
+		void setRedir(int input, int output);
+	protected:
+		int inputRedir;
+		int outputRedir;
+			
 };
 
 #endif
