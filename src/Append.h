@@ -13,4 +13,3 @@ class Append : public Base {
 };
 
 #endif
-
