@@ -4,12 +4,12 @@
 #include "Base.h"
 
 class Append : public Base {
-	public:
-		Append(Base* lhs, Base* rhs) : Base() {this->lhs = lhs; this->rhs = rhs;}
-		virtual bool execute();
-	private:
-		Base* lhs = nullptr;
-        	Base* rhs = nullptr;
+        public:
+                Append(Base* lhs, std::string file) : Base() {this->lhs = lhs; this->file = file;}
+                virtual bool execute();
+        private:
+                Base* lhs = nullptr;
+		std::string file;
 };
 
 #endif
