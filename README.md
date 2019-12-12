@@ -6,7 +6,7 @@
 This program is a basic command shell called rshell. We will implement a composite pattern to create a working command line, which will be capable of reading in user input through a reader and decipher the correct command based on what is read by choosing the correct class.
 
 # Diagram:
-![OMT](https://raw.githubusercontent.com/cs100/assignment-caffeineorfeed/master/images/Rshell%20OMT%20(2).png?token=ANL74FLNABG6C3PYEHKBATK55BAKA)
+![OMT](https://raw.githubusercontent.com/cs100/assignment-caffeineorfeed/master/images/Rshell%20OMT%20(3).png?token=ANL74FOELJN7WNWP7I3KSP257MND2)
 
 # Class Descriptions:
 **Base Class** : The Base class is the class that all other classes derive from. We have a virtual destructor for our Base class. We use this destructor to call the derived destructor, then the inherited destructor.
