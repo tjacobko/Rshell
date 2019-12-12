@@ -1,1 +1,1 @@
-this text file should be appended by the integration scripts
+this file should be appended by integration scripts

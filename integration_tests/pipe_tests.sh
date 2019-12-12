@@ -5,5 +5,5 @@ ls | wc
 echo WC is word count | wc
 ls | cat | wc
 ls -a | wc
-cat < test.txt | tr a-z A-Z | tee scriptOutputFile
+cat < scriptTest/scriptPipe.txt | tr a-z A-Z | tee scriptTest/scriptOutputFile
 exit

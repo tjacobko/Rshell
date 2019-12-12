@@ -1,1 +1,1 @@
-this text should be written over by the integration scripts
+this text file should be overwritten by integration scripts.
