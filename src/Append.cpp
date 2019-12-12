@@ -31,7 +31,7 @@ bool Append::execute() {
     else {
         if (waitpid(cpid, NULL, 0) == -1) {
             perror("wait error");
-	    ireturn false;
+	    return false;
         }
         close(pipefd[1]);
         close(pipefd[0]);
