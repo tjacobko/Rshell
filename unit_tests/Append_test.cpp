@@ -48,7 +48,7 @@ TEST(AppendTest, AppTest1) {
 	Base* com2 = new Command("tr a-z A-Z");
 	
 	Base* pipe1 = new Pipe(com1, com2);
-	Base* append = new Append(pipe1, "testTXTdir/append.txt");
+	Base* append = new Append(pipe1, "unit_tests/testTXTdir/append.txt");
 	append->execute();
 }
 
