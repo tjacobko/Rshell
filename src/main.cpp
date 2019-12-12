@@ -11,6 +11,9 @@
 #include "Exit.cpp"
 #include "TestF.cpp"
 #include "Paren.cpp"
+#include "Pipe.cpp"
+#include "Append.cpp"
+#include "Write.cpp"
 
 int FindLength(std::string str) {
     std::stack<int> parenStack;
@@ -50,20 +53,22 @@ Base* Parser(std::string mystr) {
     std::string testArgs = "";
     std::vector<Base*> commands;
     std::vector<std::string> connectorsString;
+    std::vector<std::string> appendStrings;
+    std::vector<std::string> writeStrings;
     std::stack<Base*> commandsStack;
     
     for (int i = 0; i < mystr.length(); i++) {
-        if (mystr.at(i) != '&' && mystr.at(i) != '|' && mystr.at(i) != ';' && mystr.at(i) != '#' && mystr.at(i) != '(' && mystr.at(i) != ')') {
+        if (mystr.at(i) != '&' && mystr.at(i) != '|' && mystr.at(i) != ';' && mystr.at(i) != '#' && mystr.at(i) != '(' && mystr.at(i) != ')' && mystr.at(i) != '>') {
             sub += mystr.at(i);
         }
         else if (mystr.at(i) == '(') {
             int length = FindLength(mystr.substr(i));
-	    if (length == 0) {
-                std::cout << "Uneven number of parenthesis." << std::endl;
-                std::string newStr;
-                std::cout << "$ ";
-                std::getline(std::cin, newStr);
-                return Parser(newStr);
+    	    if (length == 0) {
+                    std::cout << "Uneven number of parenthesis." << std::endl;
+                    std::string newStr;
+                    std::cout << "$ ";
+                    std::getline(std::cin, newStr);
+                    return Parser(newStr);
             }
             std::string pstr = mystr.substr(i, length);
             pstr.erase(pstr.begin());
@@ -74,48 +79,79 @@ Base* Parser(std::string mystr) {
             if (i > mystr.length()) {
                 break;
             }
-	    else if (mystr.at(i) != ';') {
-		i++;
-	    }
+	        else if (mystr.at(i) != ';') {
+		        i++;
+	        }
         }
-	else {
-	    if (mystr.at(i) == '#') {
-		break;
-	    }
-	    if (mystr.at(i) != ';') {
-		sub.pop_back();
-	    }
-	    if (sub == "exit" || sub == "Exit") {
-	        commands.push_back(new Exit());
-	    }
-	    else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") {
-		testArgs = sub.substr(5, sub.length()-5);
-		commands.push_back(new TestF(testArgs));
-		testArgs = "";
-	    }
-	    else if (sub.at(0) == '[' && sub.at(sub.length()-1) == ']') {
-		testArgs = sub.substr(2, sub.length()-4);
-		commands.push_back(new TestF(testArgs));
-		testArgs = "";
-	    }
 	    else {
-	        commands.push_back(new Command(sub));
-	    }
+	        if (mystr.at(i) == '#') {
+		        break;
+	        }
+    	    if (mystr.at(i) != ';') {
+    		    sub.pop_back();
+    	    }
+    	    if (sub == "exit" || sub == "Exit") {
+    	        commands.push_back(new Exit());
+    	    }
+    	    else if (sub.substr(0, 4) == "Test" || sub.substr(0, 4) == "test") {
+    		    testArgs = sub.substr(5, sub.length()-5);
+    		    commands.push_back(new TestF(testArgs));
+    		    testArgs = "";
+    	    }
+    	    else if (sub.at(0) == '[' && sub.at(sub.length()-1) == ']') {
+    		    testArgs = sub.substr(2, sub.length()-4);
+    		    commands.push_back(new TestF(testArgs));
+    		    testArgs = "";
+    	    }
+    	    else if (connectorsString.empty() != true) {
+    	        if (connectorsString.at(connectorsString.size()-1) == ">") {
+    	            writeStrings.push_back(sub);
+    	        }
+    	        else if (connectorsString.at(connectorsString.size()-1) == ">>") {
+    	            appendStrings.push_back(sub);
+    	        }
+    	        else {
+    	            commands.push_back(new Command(sub));
+    	        }
+	        }
+    	    else {
+    	        commands.push_back(new Command(sub));
+    	    }
             sub = "";
-	}
+	    }
 	    
-	if (mystr.at(i) == '&') {
-            connectorsString.push_back("&&");
-            i = i + 2;
+    	if (mystr.at(i) == '&') {
+                connectorsString.push_back("&&");
+                i = i + 2;
         }
         else if (mystr.at(i) == '|') {
-            connectorsString.push_back("||");
-            i = i + 2;
+            if (mystr.at(i+1) != '|') {
+                connectorsString.push_back("|");
+                i++;
+            }
+            else {
+                connectorsString.push_back("||");
+                i = i + 2;
+            }
         }
         else if (mystr.at(i) == ';') {
             connectorsString.push_back(";");
-	    i++;
+    	    i++;
         }
+        else if (mystr.at(i) == '<') {
+    	    sub.pop_back();
+    	    sub.pop_back();
+    	}
+    	else if (mystr.at(i) == '>') {
+    	    if (mystr.at(i+1) == '>') {
+    	        connectorsString.push_back(">>");
+    	        i = i + 2;
+    	    }
+    	    else {
+    	        connectorsString.push_back(">");
+    	        i++;
+    	    }
+    	}
     }
     if (sub != "") {
         if (sub == "exit" || sub == "Exit") {
@@ -131,6 +167,17 @@ Base* Parser(std::string mystr) {
             commands.push_back(new TestF(testArgs));
             testArgs = "";
         }
+        else if (connectorsString.empty() != true) {
+	        if (connectorsString.at(connectorsString.size()-1) == ">") {
+	            writeStrings.push_back(sub);
+	        }
+	        else if (connectorsString.at(connectorsString.size()-1) == ">>") {
+	            appendStrings.push_back(sub);
+	        }
+	        else {
+	            commands.push_back(new Command(sub));
+	        }
+	    }
         else {
 	        commands.push_back(new Command(sub));
         }
@@ -146,20 +193,40 @@ Base* Parser(std::string mystr) {
         
         for (int i = 0; i < connectorsString.size(); i++) {
             Base* connector = nullptr;
-            Base* lhs = commandsStack.top();
-            commandsStack.pop();
-            Base* rhs = commandsStack.top();
-            commandsStack.pop();
-            if (connectorsString.at(i) == "&&") {
-                connector = new Ampersand(lhs, rhs);
-            }
-            else if (connectorsString.at(i) == "||") {
-                connector = new OrConnector(lhs, rhs);
+            Base* lhs = nullptr;
+            Base* rhs = nullptr;
+            if (connectorsString.at(i) != ">>" && connectorsString.at(i) != ">") {
+                lhs = commandsStack.top();
+                commandsStack.pop();
+                rhs = commandsStack.top();
+                commandsStack.pop();
+                if (connectorsString.at(i) == "&&") {
+                    connector = new Ampersand(lhs, rhs);
+                }
+                else if (connectorsString.at(i) == "||") {
+                    connector = new OrConnector(lhs, rhs);
+                }
+                else if (connectorsString.at(i) == "|") {
+                    connector = new Pipe(lhs, rhs);
+                }
+                else {
+                    connector = new Semicolon(lhs, rhs);
+                }
+                commandsStack.push(connector);
             }
             else {
-                connector = new Semicolon(lhs, rhs);
+                lhs = commandsStack.top();
+                commandsStack.pop();
+                if (connectorsString.at(i) == ">>") {
+                    connector = new Append(lhs, appendStrings.at(0));
+                    appendStrings.erase(appendStrings.begin());
+                }
+                else {
+                    connector = new Write(lhs, writeStrings.at(0));
+                    writeStrings.erase(writeStrings.begin());
+                }
+                commandsStack.push(connector);
             }
-            commandsStack.push(connector);
         }
         return commandsStack.top();
     }
