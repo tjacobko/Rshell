@@ -1,6 +1,6 @@
 # CS 100 RShell
 ## Fall 2019
-### Timothy Jacob Ko (861286868) and Ethan Nguyen (861283248)
+### Jacob Ko and Ethan Nguyen
 
 # Introduction:
 This program is a basic command shell called rshell. We will implement a composite pattern to create a working command line, which will be capable of reading in user input through a reader and decipher the correct command based on what is read by choosing the correct class.
