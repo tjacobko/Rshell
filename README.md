@@ -42,7 +42,7 @@ Alongside the test commands, we need to utilize macros in order to run these tes
  
  
 # Development and Testing Roadmap:
-_To Do_ : 
+DONE : 
   * Piping Class ( #13 ) 
       * This class is responsible for *piping* the arguments. It is considered a connector class and will act as such.
          https://github.com/cs100/assignment-caffeineorfeed/issues/13
